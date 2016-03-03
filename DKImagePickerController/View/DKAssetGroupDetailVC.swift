@@ -373,11 +373,15 @@ internal class DKAssetGroupDetailVC: UICollectionViewController, DKGroupDataMana
         if let firstSelectedAsset = self.imagePickerController?.selectedAssets.first,
             selectedAsset = (collectionView.cellForItemAtIndexPath(indexPath) as? DKAssetCell)?.asset
             where self.imagePickerController?.allowMultipleTypes == false && firstSelectedAsset.isVideo != selectedAsset.isVideo {
-                
-                UIAlertView(title: DKImageLocalizedStringWithKey("selectPhotosOrVideos"),
-                    message: DKImageLocalizedStringWithKey("selectPhotosOrVideosError"),
-                    delegate: nil,
-                    cancelButtonTitle: DKImageLocalizedStringWithKey("ok")).show()
+        //(2016-03-03, depreciated in IOS9)                
+//                UIAlertView(title: DKImageLocalizedStringWithKey("selectPhotosOrVideos"),
+//                    message: DKImageLocalizedStringWithKey("selectPhotosOrVideosError"),
+//                    delegate: nil,
+//                    cancelButtonTitle: DKImageLocalizedStringWithKey("ok")).show()
+                let alert = UIAlertController(title: DKImageLocalizedStringWithKey("selectPhotosOrVideos"), message: DKImageLocalizedStringWithKey("selectPhotosOrVideosError"), preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "ok", style: .Cancel, handler: { (action) -> Void in
+                }))
+                self.presentViewController(alert, animated: true, completion: nil)
                 
                 return false
         }
